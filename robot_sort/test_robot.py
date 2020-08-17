@@ -3,7 +3,6 @@ import random
 from robot_sort import SortingRobot
 
 class Test(unittest.TestCase):
-
     def setUp(self):
         self.small_list = [5, 4, 3, 2, 1]
         self.medium_list = [11, 13, 7, 17, 9, 20, 1, 21, 2, 4, 22, 16, 15, 10, 23, 19, 8, 3, 5, 14, 6, 0, 24, 12, 18]
@@ -36,25 +35,25 @@ class Test(unittest.TestCase):
         robot.sort()
         self.assertEqual(robot._list, sorted(self.random_list))
 
-    # def test_stretch_times(self):
-    #     robot = SortingRobot(self.small_list)
-    #     robot.sort()
-    #     self.assertLess(robot._time, 110)
+    def test_stretch_times(self):
+        robot = SortingRobot(self.small_list)
+        robot.sort()
+        self.assertLess(robot._time, 110)
 
-    #     robot = SortingRobot(self.medium_list)
-    #     robot.sort()
-    #     print(robot._time)
-    #     self.assertLess(robot._time, 1948)
+        robot = SortingRobot(self.medium_list)
+        robot.sort()
+        print(robot._time)
+        self.assertLess(robot._time, 1948)
 
-    #     robot = SortingRobot(self.large_list)
-    #     robot.sort()
-    #     print(robot._time)
-    #     self.assertLess(robot._time, 27513)
+        robot = SortingRobot(self.large_list)
+        robot.sort()
+        print(robot._time)
+        self.assertLess(robot._time, 27513)
 
-    #     robot = SortingRobot(self.large_varied_list)
-    #     robot.sort()
-    #     print(robot._time)
-    #     self.assertLess(robot._time, 28308)
+        robot = SortingRobot(self.large_varied_list)
+        robot.sort()
+        print(robot._time)
+        self.assertLess(robot._time, 28308)
 
 
 if __name__ == '__main__':
