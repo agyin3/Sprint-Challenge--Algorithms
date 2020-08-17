@@ -63,43 +63,76 @@ class SortingRobot:
         return len(self._list)
 
     def sort(self):
-        
+        '''
+        LIGHT "ON" -> robot carrying item
+        LIGHT "OFF" -> robot not carrying item  
+        '''    
         if self.light_is_on() is False:
             
-            if self.can_move_left() is False:
-                self.swap_item()
-                self.set_light_on()
-                return self.sort()
-            
-            elif self.can_move_right() is False:
+            # Index len(self._list) - 1
+            if self.can_move_right() is False:
+                '''
+                If robot reaches the end of the list 
+                while not carrying an item, then the 
+                list is sorted
+                '''
                 return self._list
             
             else:
+                '''
+                Swap items and turn the light on to in
+                indicate the robot is carrying an item
+                The robot is using None as a partition
+                so everything to the left of None is sorted
+                '''
                 self.swap_item()
                 self.set_light_on()
                 return self.sort()
                 
                 
-        else:
-            
+        else:    
+
+                # Able to move right
                 while self.can_move_right():
-                # Need to advance first 
-                # to check new item
+                    '''
+                    Robot will move right and compare items
+
+                    ** Can move right **
+                    Robot's item is smaller -> swap items
+                    Robot's item larger -> continue forward
+
+                    ** Can't move right **
+                    Robot's item smaller -> will move left
+                    Robot's items larger -> swap items
+                    '''
+
                     self.move_right()
                         
                     if self.compare_item() < 0:
                         if self.can_move_right():
                             self.swap_item()
-                        else:
-                            pass
                         
                     elif self.compare_item() > 0:
                         if self.can_move_right() is False:
                             self.swap_item()
 
-            ## What happens when going left
                 while self.can_move_left():
-            # If not able to move forward, swap cards
+                    '''
+                    Robot will move left and compare items
+                    until it reaches a None. If position of None
+                    is equal to or greater then len(self._list)
+                    list will be sorted
+
+                    *** None position < len(self._list) ***
+                    Robot's item smaller -> continue forward
+                    Robot's item larger -> swap items
+                    None comparison -> swap items, turn light off, move right, recursive call self.sort
+
+                    *** None position >= len(self._list) ***
+                    Robot's item smaller -> continue forward
+                    Robot's item larger -> swap items
+                    None comparison -> swap items, return list
+                    '''
                     self.move_left()
                     
                     if self.compare_item() is None:
@@ -115,9 +148,6 @@ class SortingRobot:
 
                     elif self.compare_item() >= 0:
                         self.swap_item()
-
-                    
-            # then continue search to left
                    
         return self._list
         
